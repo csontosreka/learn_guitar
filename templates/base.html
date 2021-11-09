@@ -17,8 +17,8 @@
 
 <body>
     <!-- Navbar here -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <img src="https://cdn-icons-png.flaticon.com/512/93/93013.png" class="img-responsive" width="50">
+    <nav id="navigation" class="navbar navbar-expand-md navbar-dark bg-dark">
+        <img id="icon" src="https://cdn-icons-png.flaticon.com/512/93/93013.png" class="img-responsive" width="50">
         <a class="navbar-brand" href="#">Learn Guitar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -30,10 +30,10 @@
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">My Songs</a>
+                    <a class="nav-link" href="{{ url_for('search_page') }}">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Other</a>
+                    <a class="nav-link" href="#">My Songs</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -66,10 +66,12 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 </body>
-<div class="footer">
+<div id="footer" class="bg-dark">
     <p> &copy; Csontos Réka Hanga</p>
     <p>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
             href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+    <p>Image by <a href="https://pixabay.com/users/pexels-2286921/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1851426">Pexels</a> 
+        from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1851426">cmdPixabay</a></p>
 </div>
 <style>
     body {
@@ -77,14 +79,13 @@
         color: white
     }
 
-    img {
+    #icon {
         -webkit-filter: invert(1);
         filter: invert(1);
-        margin: 10px;
+        margin-right: 10px;
     }
 
-    .footer {
-        position: fixed;
+    #footer {
         left: 0;
         bottom: 0;
         width: 100%;
