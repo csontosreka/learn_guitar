@@ -4,7 +4,7 @@ api_key = 'AIzaSyC5KPqjgkghi5Q0JW8aXiMdahWIGyEB8Ek'
 
 def get_yt_search_results():
     youtube = build('youtube', 'v3', developerKey=api_key)
-    search_query="Spiritbox circle with me" #ToDo
+    search_query="A day to remember all i want" #ToDo
     request = youtube.search().list(q=search_query, part='id, snippet', type='video', maxResults=10)
     result = request.execute()
 
