@@ -1,7 +1,5 @@
-from enum import unique
-
-from sqlalchemy.orm import backref
 from application import db
+from application import bcrypt
 
 
 class User(db.Model):
@@ -10,6 +8,16 @@ class User(db.Model):
     email_address = db.Column(db.String(length=50), unique=True, nullable=False)
     password_hash = db.Column(db.String(length=60), nullable=False)
     saved_songs = db.relationship('My_Songs', backref='owned_user', lazy=True)
+
+
+    @property
+    def password(self):
+        return self.password
+
+
+    @password.setter
+    def password(self, plain_text_password):
+        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
 
 
 class My_Songs(db.Model):
@@ -21,6 +29,7 @@ class My_Songs(db.Model):
     yt_url = db.Column(db.String(length=200), nullable=False, unique=True)
     tab_url = db.Column(db.String(length=200), nullable=False, unique=True)
     owner = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
+
 
     def __repr__(self):
         return f'Song {self.song}'
