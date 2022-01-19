@@ -5,7 +5,7 @@ from application.youtube_api import get_yt_search_results
 from application import tab_scraper
 from application.forms import RegisterForm, LoginForm
 from application import db
-from flask_login import login_user,logout_user
+from flask_login import login_user,logout_user, login_required
 
 
 @app.route("/")
@@ -22,6 +22,7 @@ def search_page():
 
 
 @app.route("/my-songs")
+@login_required
 def mysongs_page():
     mysongs = My_Songs.query.all()
     print(mysongs)
