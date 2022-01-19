@@ -11,6 +11,8 @@ Login Page
             <h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
             <br>
 
+            {{ form.csrf_token }}
+
             {{ form.username.label() }}
             {{ form.username(class="form-control", placeholder="Username") }}
 
