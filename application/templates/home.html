@@ -17,7 +17,7 @@
         <div class="carousel-caption d-none d-md-block">
             <h1>Start learning guitar now!</h1>
             <h3 style="font-weight: normal;">Find guitar tabs with videos and play along! You're gonna be a rockstar in no time!</h3>
-            <button class="btn btn-info btn-lg" href="#">Search for your favourite songs</button>
+            <a class="btn btn-info btn-lg" href="{{ url_for('search_page') }}">Search for your favourite songs</a>
         </div>
     </div>
       <div class="carousel-item">
@@ -25,7 +25,7 @@
         <div class="carousel-caption d-none d-md-block">
             <h1>Save your songs</h1>
             <h3 style="font-weight: normal;">Keep forgetting the songs you can already play? You can save them and find them later on the My Songs page!</h3>
-            <button class="btn btn-info btn-lg" href="#">Sing up to use this feature</button>
+            <a class="btn btn-info btn-lg" href="{{ url_for('register_page') }}">Sing up to use this feature</a>
         </div>
     </div>
       <div class="carousel-item">
@@ -33,7 +33,7 @@
         <div class="carousel-caption d-none d-md-block">
             <h1>Create a Wishlist</h1>
             <h3 style="font-weight: normal;">If you have a list of songs you'd like to learn in the future, then add them to your Wishlist! When you finished learning them, you can easily add them to your My Songs list!</h3>
-            <button class="btn btn-info btn-lg" href="#">Sing up to use this feature</button>
+            <a class="btn btn-info btn-lg" href="{{ url_for('register_page') }}">Sing up to use this feature</a>
         </div>
     </div>
     </div>
