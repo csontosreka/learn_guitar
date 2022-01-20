@@ -18,6 +18,7 @@ def home_page():
 def search_page():
     result_list = get_yt_search_results()
     tab_list = tab_scraper.get_tab_search_results()
+    
     return render_template("search.html", items=result_list, tabs=tab_list)
 
 

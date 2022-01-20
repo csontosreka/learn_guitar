@@ -6,7 +6,21 @@ def get_tab_search_results():
     soup = BeautifulSoup(html_text.text, 'lxml')
 
     search_results = soup.find_all('table', class_='tabslist fs-12')
-    return search_results
+    rows = search_results[0].find_all('tr')
+    print(rows)
+
+    tabs = []
+    for row in rows[1:]:
+        id = row.find('td', class_="serial").text
+        artist = row.find('td', text=id).find_next_sibling("td").find_next_sibling("td").text
+        title = row.find('a', class_="ryzh22").text 
+        tab_type = row.find('td', class_="tabrat t_title").text
+        tab_link = row.find('a', class_="ryzh22", href=True)['href']
+
+        tabs.append([id, artist, title, tab_type, tab_link])
+    print(tabs)    
+    return tabs
+
 
 def get_tab():
     html_text = requests.get('https://www.guitartabs.cc/tabs/a/a_day_to_remember/all_i_want_tab.html')
@@ -14,3 +28,4 @@ def get_tab():
 
     tab = soup.find_all('pre')
     return tab
+
