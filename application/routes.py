@@ -18,7 +18,6 @@ def home_page():
 def search_page():
     result_list = get_yt_search_results()
     tab_list = tab_scraper.get_tab_search_results()
-    
     return render_template("search.html", items=result_list, tabs=tab_list)
 
 
@@ -26,7 +25,6 @@ def search_page():
 @login_required
 def mysongs_page():
     mysongs = My_Songs.query.all()
-    print(mysongs)
     return render_template("my-songs.html", songs=mysongs)
 
 

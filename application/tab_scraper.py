@@ -18,7 +18,7 @@ def get_tab_search_results():
         tab_link = row.find('a', class_="ryzh22", href=True)['href']
 
         tabs.append([id, artist, title, tab_type, tab_link])
-    print(tabs)    
+    
     return tabs
 
 
