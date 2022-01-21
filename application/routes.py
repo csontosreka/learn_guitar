@@ -1,6 +1,6 @@
 from application import app
 from flask import render_template, redirect, url_for, flash
-from application.models import My_Songs, User
+from application.models import My_Songs, Whislist, User
 from application.youtube_api import get_yt_search_results
 from application import tab_scraper
 from application.forms import RegisterForm, LoginForm
@@ -26,6 +26,13 @@ def search_page():
 def mysongs_page():
     mysongs = My_Songs.query.all()
     return render_template("my-songs.html", songs=mysongs)
+
+
+@app.route("/whislist")
+@login_required
+def whislist_page():
+    whislist = Whislist.query.all()
+    return render_template("whislist.html", songs=whislist)
 
 
 @app.route("/register", methods=["GET", "POST"])
