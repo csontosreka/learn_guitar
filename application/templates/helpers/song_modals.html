@@ -1,0 +1,42 @@
+<style>
+    .modal-content{
+        background-color: #212121;
+    }
+</style>
+
+<div class="modal fade" id="Modal-AddSong" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Song to Whislist</h5>
+                <button type="button" class="close" 
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    {{ form.artist.label() }}
+                    {{ form.artist(class="form-control", placeholder="Artist Name") }}
+
+                    {{ form.title.label() }}
+                    {{ form.title(class="form-control", placeholder="Song Title") }}
+                    
+                    <br>
+
+                    <input id="added_song" name="added_song" type="hidden" value='{{ form.artist.data }}, {{form.title.data}}'>
+                    {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

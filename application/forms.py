@@ -30,3 +30,9 @@ class LoginForm(FlaskForm):
     username = StringField(label='Username:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign In')
+
+
+class AddSongForm(FlaskForm):
+    artist = StringField(label='Artist:', validators=[DataRequired()])
+    title = StringField(label='Title:', validators=[DataRequired()])
+    submit = SubmitField(label='Add Song')

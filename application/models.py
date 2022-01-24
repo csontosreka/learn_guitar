@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     email_address = db.Column(db.String(length=50), unique=True, nullable=False)
     password_hash = db.Column(db.String(length=60), nullable=False)
     saved_songs = db.relationship('My_Songs', backref='owned_user', lazy=True)
-    whislist = db.relationship('Whislist', backref='owned_user', lazy=True)
+    wishlist = db.relationship('Wishlist', backref='owned_user', lazy=True)
 
 
     def get_id(self):
@@ -50,7 +50,7 @@ class My_Songs(db.Model):
         return f'Song {self.song}'
 
 
-class Whislist(db.Model):
+class Wishlist(db.Model):
     song_id = db.Column(db.Integer(), primary_key=True) 
     artist = db.Column(db.String(length=50), nullable=False)
     song = db.Column(db.String(length=50), nullable=False)

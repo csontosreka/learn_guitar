@@ -7,7 +7,6 @@ def get_tab_search_results():
 
     search_results = soup.find_all('table', class_='tabslist fs-12')
     rows = search_results[0].find_all('tr')
-    print(rows)
 
     tabs = []
     for row in rows[1:]:

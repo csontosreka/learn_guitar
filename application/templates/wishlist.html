@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Whislist
+    Wishlist
 {% endblock %}
 
 {% block content %}
+{% include 'helpers/song_modals.html' %}
     
     <div class="input-group">
         <input class=" border rounded-pill" type="text" placeholder="Search for songs" id="search-input-yt">
@@ -15,6 +16,11 @@
         </span>
     </div>
     <h3>In this page you can find the songs you would like to learn in the future.</h3>
+    <div style="float: right; margin-right: 10px; margin-bottom: 10px">
+        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#Modal-AddSong">
+            Add Song
+        </button>
+    </div>
     <table class="table table-hover table-dark">
         <thead>
             <tr>
@@ -25,16 +31,19 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Your rows inside the table HERE: -->
-                {% for song in songs %}
-                    <tr>
-                        <td>{{ song.artist }}</td>
-                        <td>{{ song.song }}</td>
-                        <td>
-                            <button class="btn btn-outline btn-info">Search for tabs</button>
-                        </td>
-                    </tr>
-                {% endfor %}
+            {% for song in songs %}
+                <tr>
+                    <td>{{ song.artist }}</td>
+                    <td>{{ song.song }}</td>
+                    <td>
+                        <button class="btn btn-outline btn-info">Search for tabs</button>
+                        <button class="btn btn-outline btn-info">Add to My Songs</button>
+                        <button class="btn btn-outline btn-danger">Delete  
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     <style>
@@ -42,7 +51,6 @@
             display: flex;
         }
     
-
         #search-input-yt {
             width: 50%;
             margin: 10px;

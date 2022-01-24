@@ -1,11 +1,11 @@
 from application import app
-from flask import render_template, redirect, url_for, flash
-from application.models import My_Songs, Whislist, User
+from flask import render_template, redirect, url_for, flash, request
+from application.models import My_Songs, Wishlist, User
 from application.youtube_api import get_yt_search_results
 from application import tab_scraper
-from application.forms import RegisterForm, LoginForm
+from application.forms import RegisterForm, LoginForm, AddSongForm
 from application import db
-from flask_login import login_user,logout_user, login_required
+from flask_login import login_user,logout_user, login_required, current_user
 
 
 @app.route("/")
@@ -28,11 +28,27 @@ def mysongs_page():
     return render_template("my-songs.html", songs=mysongs)
 
 
-@app.route("/whislist")
+@app.route("/wishlist", methods=["GET", "POST"])
 @login_required
-def whislist_page():
-    whislist = Whislist.query.all()
-    return render_template("whislist.html", songs=whislist)
+def wishlist_page():
+    form = AddSongForm()
+    print(form.errors)
+
+    if form.validate_on_submit() and request.method == "POST":
+        song_to_create = Wishlist(artist=form.artist.data,
+                                song=form.title.data,
+                                owner=current_user.user_id)
+        if Wishlist.query.filter_by(artist=form.artist.data,
+                                song=form.title.data,
+                                owner=current_user.user_id) is None:
+            db.session.add(song_to_create)
+            db.session.commit()
+        else:
+            flash('Cannot save song, or song is already added to your wishlist', category='danger')
+
+    wishlist = Wishlist.query.filter_by(owner=current_user.user_id)
+    
+    return render_template("wishlist.html", songs=wishlist, form=form)
 
 
 @app.route("/register", methods=["GET", "POST"])
