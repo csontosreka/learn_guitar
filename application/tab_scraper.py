@@ -25,6 +25,12 @@ def get_tab():
     html_text = requests.get('https://www.guitartabs.cc/tabs/a/a_day_to_remember/all_i_want_tab.html')
     soup = BeautifulSoup(html_text.text, 'lxml')
 
-    tab = soup.find_all('pre')
-    return tab
+    tab_first_part = soup.find_all('pre')[1].contents[0]
+    tab_second_part = soup.find_all('pre')[1].contents[2]
+    
+    tab = tab_first_part + tab_second_part
+
+    title = soup.find('h3', class_="content_h").text
+
+    return (title, tab)
 

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Tab
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <h1 class="display-4 font-weight-normal"> {{ title }} </h1>
+    </div>
+
+    <div class="container pt-3 rounded bg-light text-dark">
+        <div id="tab">{{ tab }}</div>
+    </div>
+    
+    <style>
+
+        h1 {
+            text-align: center;
+        }
+
+        #tab {
+            margin : 10px;
+            display: block;
+            font-family: monospace;
+            white-space: pre;
+        }
+    </style>
+
+
+{% endblock %}

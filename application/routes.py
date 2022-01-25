@@ -20,6 +20,11 @@ def search_page():
     tab_list = tab_scraper.get_tab_search_results()
     return render_template("search.html", items=result_list, tabs=tab_list)
 
+@app.route("/tab")
+def tab_page():
+    tab = tab_scraper.get_tab()
+    return render_template("tab.html", title=tab[0], tab=tab[1])
+
 
 @app.route("/my-songs")
 @login_required
@@ -40,9 +45,11 @@ def wishlist_page():
                                 owner=current_user.user_id)
         if Wishlist.query.filter_by(artist=form.artist.data,
                                 song=form.title.data,
-                                owner=current_user.user_id) is None:
+                                owner=current_user.user_id).first() is None:
             db.session.add(song_to_create)
             db.session.commit()
+            flash('Song added successfully!', category='success')
+
         else:
             flash('Cannot save song, or song is already added to your wishlist', category='danger')
 
@@ -101,3 +108,7 @@ def logout_page():
     logout_user()
     flash(f'You are logged out!', category='info')
     return redirect(url_for('home_page'))
+
+@app.route("/delete", methods=["GET", "POST"])
+def delete_from_wishlist_page():
+    pass
