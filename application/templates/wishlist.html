@@ -38,10 +38,10 @@
                     <td>
                         <button class="btn btn-outline btn-info">Search for tabs</button>
                         <button class="btn btn-outline btn-info">Add to My Songs</button>
-                        <a class="btn btn-outline btn-danger" href="{{ url_for('delete_from_wishlist_page') }}">Delete  
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                            <input id="delete_song" name="delete_song" type="hidden" value='{{ song.artist }}, {{ song.song }}'>
-                        </a>
+                        <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
+                            <input type=hidden value="{{ song.artist }}, {{ song.song }}"name=song_to_delete />
+                            <input type=submit value='Delete' class="btn btn-outline btn-danger"></input>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}

@@ -20,9 +20,11 @@ def search_page():
     tab_list = tab_scraper.get_tab_search_results()
     return render_template("search.html", items=result_list, tabs=tab_list)
 
-@app.route("/tab")
+#TODO
+@app.route("/tab", methods=["GET", "POST"])
 def tab_page():
-    tab = tab_scraper.get_tab()
+    tab_url = request.form.get("tab_url")
+    tab = tab_scraper.get_tab(tab_url)
     return render_template("tab.html", title=tab[0], tab=tab[1])
 
 
@@ -110,5 +112,17 @@ def logout_page():
     return redirect(url_for('home_page'))
 
 @app.route("/delete", methods=["GET", "POST"])
-def delete_from_wishlist_page():
-    pass
+def delete_song_page():
+    row = request.form.get('song_to_delete').split(', ')
+    artist = row[0]
+    song = row[1]
+    entry = Wishlist.query.filter_by(artist=artist, song=song, owner=current_user.user_id).first()
+    
+    if entry is not None:
+        db.session.delete(entry)
+        db.session.commit()
+        flash('Song successfully deleted from your Wishlist!', category='success')
+    else:
+        flash('Something went wrong! Cannot delete song', category='danger')
+
+    return redirect(url_for('wishlist_page'))

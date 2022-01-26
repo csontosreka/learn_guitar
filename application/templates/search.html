@@ -38,7 +38,10 @@
                                 <td>{{ tab[2] }}</td>
                                 <td>{{ tab[3] }}</td>
                                 <td>
-                                    <button class="btn btn-outline btn-info">Choose this tab</button>
+                                    <form method="GET">
+                                        <input type="hidden", name="tab_url", value="{{ tab[4] }}">
+                                        <a class="btn btn-outline btn-info" href="{{ url_for('tab_page') }}">Choose this tab</a>
+                                    </form>  
                                 </td>
                             </tr>
                         {% endfor %}
