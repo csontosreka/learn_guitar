@@ -5,13 +5,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="input-group">
-        <input class=" border rounded-pill" type="text" placeholder="Search for tabs" id="search-input-yt">
-        <span class="input-group-append">
-            <button id="search-btn-yt" class="btn btn-outline-secondary bg-white border-start-0 border rounded-pill ms-n3" type="button">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
+    <div class="container">
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div class="row" style="margin-top:20px; margin-left: 10px; margin-right: 10px">
+                <div class="col-9">
+                    {{ form.query(class="form-control border rounded-pill", placeholder="Search for tabs") }}
+                </div>
+                <div class="col-1">
+                    <button type=submit class="btn btn-outline-secondary bg-white border-start-0 border rounded-pill ms-n3"><span class="fa fa-search"></span></button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <div class="row" style="margin-top:20px; margin-left: 10px; margin-right: 10px">
@@ -38,9 +43,9 @@
                                 <td>{{ tab[2] }}</td>
                                 <td>{{ tab[3] }}</td>
                                 <td>
-                                    <form method="GET">
+                                    <form action="{{ url_for('tab_page') }}" method=post class=tab-for-song>
                                         <input type="hidden", name="tab_url", value="{{ tab[4] }}">
-                                        <a class="btn btn-outline btn-info" href="{{ url_for('tab_page') }}">Choose this tab</a>
+                                        <input type=submit value='Choose this Tab' class="btn btn-outline btn-info"></input>
                                     </form>  
                                 </td>
                             </tr>
@@ -63,10 +68,10 @@
                 </thead>
                 <tbody>
                     <!-- Your rows inside the table HERE: -->
-                        {% for item in items %}
+                        {% for video in videos %}
                             <tr>
-                                <td><img src={{ item.thumbnail_url }} class="img-responsive"></td>
-                                <td>{{ item.title }}</td>
+                                <td><img src={{ video.thumbnail_url }} class="img-responsive"></td>
+                                <td>{{ video.title }}</td>
                                 <td>
                                     <button class="btn btn-outline btn-info">Choose this video</button>
                                 </td>
@@ -76,23 +81,4 @@
             </table>
         </div>
     </div>
-        
-    
-    <style>
-        #input-group {
-            display: flex;
-        }
-    
-
-        #search-input-yt {
-            width: 50%;
-            margin: 10px;
-            
-        }
-
-        #search-btn-yt {
-            margin: 10px;
-        }
-
-    </style>
 {% endblock %}

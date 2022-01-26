@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash, request
 from application.models import My_Songs, Wishlist, User
 from application.youtube_api import get_yt_search_results
 from application import tab_scraper
-from application.forms import RegisterForm, LoginForm, AddSongForm
+from application.forms import RegisterForm, LoginForm, AddSongForm, SearchForm
 from application import db
 from flask_login import login_user,logout_user, login_required, current_user
 
@@ -14,16 +14,22 @@ def home_page():
     return render_template("home.html")
 
 
-@app.route("/search")
+@app.route("/search", methods=["GET", "POST"])
 def search_page():
-    result_list = get_yt_search_results()
+    form = SearchForm()
+    if form.validate_on_submit():
+        search_query = form.query.data
+        video_list = get_yt_search_results(search_query)
+    else:
+        video_list = []
     tab_list = tab_scraper.get_tab_search_results()
-    return render_template("search.html", items=result_list, tabs=tab_list)
+    
+    return render_template("search.html",form=form, videos=video_list, tabs=tab_list)
 
 #TODO
 @app.route("/tab", methods=["GET", "POST"])
 def tab_page():
-    tab_url = request.form.get("tab_url")
+    tab_url = request.form.get('tab_url')  
     tab = tab_scraper.get_tab(tab_url)
     return render_template("tab.html", title=tab[0], tab=tab[1])
 
