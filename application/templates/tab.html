@@ -6,6 +6,18 @@
 
 {% block content %}
 
+    <div class="row">
+        <div class="col-5">
+            <a class="btn btn-info btn-lg" href="{{ url_for('search_page') }}" style="margin-top: 10px; margin-left: 10px">
+                <i class="fas fa-angle-left"></i> Back</a>
+        </div>
+        <div class="col-6" style="margin-top: 10px; margin-right: 10px; margin-left: 110px">
+            <button class="btn btn-success btn-lg float-right">
+                <i class="fas fa-plus"></i> Add to My Songs
+            </button>
+        </div>
+    </div>
+
     <div>
         <h1 class="display-4 font-weight-normal"> {{ title }} </h1>
     </div>

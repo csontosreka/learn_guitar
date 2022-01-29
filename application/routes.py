@@ -29,7 +29,7 @@ def search_page():
     
     return render_template("search.html",form=form, videos=video_list, tabs=tab_list)
 
-#TODO
+
 @app.route("/tab", methods=["GET", "POST"])
 def tab_page():
     tab_url = request.form.get('tab_url')  
@@ -119,6 +119,7 @@ def logout_page():
     logout_user()
     flash(f'You are logged out!', category='info')
     return redirect(url_for('home_page'))
+    
 
 @app.route("/delete", methods=["GET", "POST"])
 def delete_song_page():
