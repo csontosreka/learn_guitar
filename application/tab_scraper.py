@@ -28,9 +28,13 @@ def get_tab(tab_url):
     html_text = requests.get(url)
     soup = BeautifulSoup(html_text.text, 'lxml')
 
-    tab_first_part = soup.find_all('pre')[1].contents[0]
-    tab_second_part = soup.find_all('pre')[1].contents[2]
-    tab = tab_first_part + tab_second_part
+    tab = ''
+
+    for content in enumerate(soup.find_all('pre')[1]):
+        if content[0] % 2 == 0:
+            tab += content[1] 
+        if content[1].name == 'a':
+            tab += content[1].text
 
     title = soup.find('h3', class_="content_h").text
 
