@@ -6,11 +6,14 @@
 
 {% block content %}
     <div class="container">
-        <form method="POST">
+        <form method="POST" style="margin-top: 20px">
             {{ form.csrf_token }}
-            <div class="row" style="margin-top:20px; margin-left: 10px; margin-right: 10px">
-                <div class="col-9">
-                    {{ form.query(class="form-control border rounded-pill", placeholder="Search for tabs") }}
+            <div class="row">
+                <div class="col-5">
+                    {{ form.artist(class="form-control border rounded-pill", placeholder="Artist Name") }}
+                </div>
+                <div class="col-5">
+                    {{ form.song(class="form-control border rounded-pill", placeholder="Song Title") }}
                 </div>
                 <div class="col-1">
                     <button type=submit class="btn btn-outline-secondary bg-white border-start-0 border rounded-pill ms-n3"><span class="fa fa-search"></span></button>

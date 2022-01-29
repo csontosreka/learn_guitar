@@ -18,11 +18,14 @@ def home_page():
 def search_page():
     form = SearchForm()
     if form.validate_on_submit():
-        search_query = form.query.data
-        video_list = get_yt_search_results(search_query)
+        artist = form.artist.data
+        song = form.song.data
+        video_list = get_yt_search_results(artist + ' ' + song)
+        tab_list = tab_scraper.get_tab_search_results(artist, song)
     else:
         video_list = []
-    tab_list = tab_scraper.get_tab_search_results()
+        tab_list = []
+    
     
     return render_template("search.html",form=form, videos=video_list, tabs=tab_list)
 

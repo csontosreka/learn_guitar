@@ -39,5 +39,6 @@ class AddSongForm(FlaskForm):
 
 
 class SearchForm(FlaskForm):
-    query = StringField(label='Search for tabs', validators=[DataRequired()])
+    artist = StringField(label='Artist', validators=[DataRequired()])
+    song = StringField(label='Song title', validators=[DataRequired()])
     submit = SubmitField('')

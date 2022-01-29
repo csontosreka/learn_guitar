@@ -3,8 +3,8 @@ import requests
 
 
 #TODO
-def get_tab_search_results():
-    html_text = requests.get('https://www.guitartabs.cc/search.php?tabtype=any&band=paramore&song=decode')
+def get_tab_search_results(artist, song):
+    html_text = requests.get('https://www.guitartabs.cc/search.php?tabtype=any&band=' + artist.lower() + '&song=' + song.lower())
     soup = BeautifulSoup(html_text.text, 'lxml')
 
     search_results = soup.find_all('table', class_='tabslist fs-12')
