@@ -5,28 +5,46 @@
 {% endblock %}
 
 {% block content %}
+{% include 'helpers/video_modals.html' %}
 
     <div class="row">
-        <div class="col-5">
+        <div class="col-sm">
             <a class="btn btn-info btn-lg" href="{{ url_for('search_page') }}" style="margin-top: 10px; margin-left: 10px">
                 <i class="fas fa-angle-left"></i> Back</a>
         </div>
-        <div class="col-6" style="margin-top: 10px; margin-right: 10px; margin-left: 110px">
-            <button class="btn btn-success btn-lg float-right">
-                <i class="fas fa-plus"></i> Add to My Songs
+        <div class="col-sm text-right">
+            <button class="btn btn-outline btn-info btn-lg" style="margin-top: 10px; margin-right: 10px;" 
+                data-toggle="modal" data-target="#Modal-VideoList"><i class="fas fa-plus"></i> Choose Video
             </button>
         </div>
     </div>
+    <div class="row">
+        <button class="btn btn-success btn-lg" style="margin-top: 10px; margin-right: 10px; position: absolute; right: 0;">
+            <i class="fas fa-plus"></i> Add to My Songs
+        </button>
+    </div>
+      
 
-    <div>
-        <h1 class="display-4 font-weight-normal"> {{ title }} </h1>
+    <div class="row">
+        <div class="col-sm text-center">
+            <h1 class="display-4 font-weight-normal"> {{ title }} </h1>
+        </div>
     </div>
 
     <div class="container pt-3 rounded bg-light text-dark">
+        <iframe width="200" height="200"
+            src="https://www.youtube.com/embed/{{video_id}}">
+        </iframe>
         <div id="tab">{{ tab }}</div>
     </div>
     
     <style>
+
+        iframe {    
+            width:30%;    
+            float:right;
+            position:relative;    
+        }
 
         h1 {
             text-align: center;

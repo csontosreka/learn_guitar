@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import requests
 
 
-#TODO
 def get_tab_search_results(artist, song):
     html_text = requests.get('https://www.guitartabs.cc/search.php?tabtype=any&band=' + artist.lower() + '&song=' + song.lower())
     soup = BeautifulSoup(html_text.text, 'lxml')
@@ -18,11 +17,19 @@ def get_tab_search_results(artist, song):
         tab_type = row.find('td', class_="tabrat t_title").text
         tab_link = row.find('a', class_="ryzh22", href=True)['href']
 
-        tabs.append([id, artist, title, tab_type, tab_link])
+        tabs_dict = {
+            "id": id,
+            "artist": artist,
+            "title": title,
+            "tab_type": tab_type,
+            "tab_link": tab_link
+        }
+
+        tabs.append(tabs_dict)
     
     return tabs
 
-#TODO there are still some bugs
+
 def get_tab(tab_url):
     url = 'https://www.guitartabs.cc' + tab_url
     html_text = requests.get(url)

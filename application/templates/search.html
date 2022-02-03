@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="container">
         <form method="POST" style="margin-top: 20px">
             {{ form.csrf_token }}
@@ -24,66 +25,42 @@
         </form>
     </div>
 
-    <div class="row" style="margin-top:20px; margin-left: 10px; margin-right: 10px">
-        <div class="col-7">
-            <h2>Tabs search results</h2>
-            <p>Choose one from the tabs by clicking the blue button.</p>
-            <table class="table table-hover table-dark">
-                <thead>
+    <div style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">
+        <h2>Tabs search results</h2>
+        <p>Choose one from the tabs by clicking the blue button.</p>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">Id</th>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for tab in tabs %}
                     <tr>
-                        <!-- Your Columns HERE -->
-                        <th scope="col">Id</th>
-                        <th scope="col">Artist</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Options</th>
+                        <td>{{ tab.id }}</td>
+                        <td>{{ tab.artist }}</td>
+                        <td>{{ tab.title }}</td</>
+                        <td>{{ tab.tab_type }}</td>
+                        <td>
+                            <form action="{{ url_for('tab_page') }}" method=post class=tab-for-song>
+                                <input type="hidden", name="tab_url", value="{{ tab.tab_link }}">
+                                <input type="hidden", name="query", value="{{ query }}">
+                                <input type=submit value='Choose this Tab' class="btn btn-outline btn-info"></input>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <!-- Your rows inside the table HERE: -->
-                        {% for tab in tabs %}
-                            <tr>
-                                <td>{{ tab[0] }}</td>
-                                <td>{{ tab[1] }}</td>
-                                <td>{{ tab[2] }}</td>
-                                <td>{{ tab[3] }}</td>
-                                <td>
-                                    <form action="{{ url_for('tab_page') }}" method=post class=tab-for-song>
-                                        <input type="hidden", name="tab_url", value="{{ tab[4] }}">
-                                        <input type=submit value='Choose this Tab' class="btn btn-outline btn-info"></input>
-                                    </form>  
-                                </td>
-                            </tr>
-                        {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    
-        <div class="col-5">
-            <h2>Video search results</h2>
-            <p>Choose one from the YouTube videos by clicking the blue button.</p>
-            <table class="table table-hover table-dark">
-                <thead>
-                    <tr>
-                        <!-- Your Columns HERE -->
-                        <th scope="col">Thumbnail</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Your rows inside the table HERE: -->
-                        {% for video in videos %}
-                            <tr>
-                                <td><img src={{ video.thumbnail_url }} class="img-responsive"></td>
-                                <td>{{ video.title }}</td>
-                                <td>
-                                    <button class="btn btn-outline btn-info">Choose this video</button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% endfor %}
+                
+            </tbody>
+        </table>
     </div>
+
+    
+
 {% endblock %}

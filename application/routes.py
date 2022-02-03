@@ -20,21 +20,28 @@ def search_page():
     if form.validate_on_submit():
         artist = form.artist.data
         song = form.song.data
-        video_list = get_yt_search_results(artist + ' ' + song)
+        search_query = artist + ' ' + song
         tab_list = tab_scraper.get_tab_search_results(artist, song)
     else:
-        video_list = []
         tab_list = []
+        search_query = ''
     
-    
-    return render_template("search.html",form=form, videos=video_list, tabs=tab_list)
+    return render_template("search.html",form=form, query=search_query, tabs=tab_list)
 
 
 @app.route("/tab", methods=["GET", "POST"])
 def tab_page():
-    tab_url = request.form.get('tab_url')  
+    tab_url = request.form.get('tab_url')
+    query = request.form.get('query') 
     tab = tab_scraper.get_tab(tab_url)
-    return render_template("tab.html", title=tab[0], tab=tab[1])
+    videos = get_yt_search_results(query)
+    video_url = request.form.get('video_url')
+    if video_url:
+        video_id = video_url.replace('https://www.youtube.com/watch?v=', '')
+    else:
+        video_id = ''
+
+    return render_template("tab.html", title=tab[0], tab=tab[1], tab_url=tab_url, videos=videos, video_id=video_id)
 
 
 @app.route("/my-songs")

@@ -17,7 +17,7 @@ def get_yt_search_results(search_query):
 
         item_dict = {
             "id": id,
-            "title": title,
+            "name": title,
             "video_url": yt_url,
             "thumbnail_url": thumbnail_url
         }
