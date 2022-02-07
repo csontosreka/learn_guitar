@@ -38,6 +38,7 @@
                     <td>
                         <button class="btn btn-outline btn-info">Search for tabs</button>
                         <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
+                            <input type="hidden" name="database" value="Wishlist">
                             <input type=hidden value="{{ song.artist }}, {{ song.song }}"name=song_to_delete />
                             <input type=submit value='Delete' class="btn btn-outline btn-danger"></input>
                         </form>

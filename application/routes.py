@@ -152,16 +152,25 @@ def logout_page():
 
 @app.route("/delete", methods=["GET", "POST"])
 def delete_song_page():
-    row = request.form.get('song_to_delete').split(', ')
-    artist = row[0]
-    song = row[1]
-    entry = Wishlist.query.filter_by(artist=artist, song=song, owner=current_user.user_id).first()
+    database = request.form.get('database')
+
+    if database == 'Wishlist':
+        row = request.form.get('song_to_delete').split(', ')
+        artist = row[0]
+        song = row[1]
+        entry = Wishlist.query.filter_by(artist=artist, song=song, owner=current_user.user_id).first()
+        page = 'wishlist_page'
+    
+    if database == 'My_Songs':
+        row = request.form.get('song_to_delete')
+        entry = My_Songs.query.filter_by(title=row, owner=current_user.user_id).first()
+        page = 'mysongs_page'
     
     if entry is not None:
         db.session.delete(entry)
         db.session.commit()
-        flash('Song successfully deleted from your Wishlist!', category='success')
+        flash(f'Song successfully deleted from {database}!', category='success')
     else:
         flash('Something went wrong! Cannot delete song', category='danger')
 
-    return redirect(url_for('wishlist_page'))
+    return redirect(url_for(page))
