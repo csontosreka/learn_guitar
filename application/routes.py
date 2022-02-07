@@ -51,6 +51,27 @@ def mysongs_page():
     return render_template("my-songs.html", songs=mysongs)
 
 
+@app.route("/save",  methods=["GET", "POST"])
+@login_required
+def save_page():
+    title = request.form.get('title')
+    #TODO
+    tuning = ''
+    tab_url = request.form.get('tab_url')
+    video_id = request.form.get('video_id')
+
+    song_to_create = My_Songs(title=title, tuning=tuning, tab_url=tab_url, video_id=video_id,
+                                owner=current_user.user_id)
+    if My_Songs.query.filter_by(title=title, tuning=tuning, tab_url=tab_url, video_id=video_id,
+                                owner=current_user.user_id).first() is None:
+        db.session.add(song_to_create)
+        db.session.commit()
+        flash('Song added successfully!', category='success')
+    else: 
+        flash('Cannot save song, or song is already added to your My Songs list.', category='danger')
+
+    return redirect(url_for('mysongs_page'))
+
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
 def wishlist_page():

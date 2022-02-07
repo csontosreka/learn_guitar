@@ -19,11 +19,16 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-success btn-lg" style="margin-top: 10px; margin-right: 10px; position: absolute; right: 0;">
-            <i class="fas fa-plus"></i> Add to My Songs
-        </button>
+        <form method="POST" action="{{ url_for('save_page') }}">
+            <input type="hidden", name="title", value="{{ title }}">
+            <input type="hidden", name="tab_url", value="{{ tab_url }}">
+            <input type="hidden", name="video_id", value="{{ video_id }}">
+            <button type=submit class="btn btn-success btn-lg" style="margin-top: 10px; margin-right: 10px; position: absolute; right: 0;">
+                <i class="fas fa-plus"></i> Add to My Songs
+            </button>
+        </form>
     </div>
-      
+    <br> 
 
     <div class="row">
         <div class="col-sm text-center">

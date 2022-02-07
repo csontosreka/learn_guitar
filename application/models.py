@@ -38,10 +38,9 @@ class User(db.Model, UserMixin):
 class My_Songs(db.Model):
     song_id = db.Column(db.Integer(), primary_key=True) 
     title = db.Column(db.String(length=50), nullable=False)
-    tab_type = db.Column(db.String(length=10), nullable=False)
     tuning = db.Column(db.String(length=10))
-    yt_url = db.Column(db.String(length=200), nullable=False, unique=True)
-    tab_url = db.Column(db.String(length=200), nullable=False, unique=True)
+    video_id = db.Column(db.String(length=200), unique=True)
+    tab_url = db.Column(db.String(length=200), unique=True)
     owner = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
 
 

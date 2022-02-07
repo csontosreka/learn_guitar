@@ -19,9 +19,7 @@
         <thead>
             <tr>
                 <!-- Your Columns HERE -->
-                <th scope="col">Artist</th>
-                <th scope="col">Song</th>
-                <th scope="col">Type</th>
+                <th scope="col">Title</th>
                 <th scope="col">Tuning</th>
                 <th scope="col">Options</th>
             </tr>
@@ -30,12 +28,10 @@
             <!-- Your rows inside the table HERE: -->
                 {% for song in songs %}
                     <tr>
-                        <td>{{ song.artist }}</td>
-                        <td>{{ song.song }}</td>
-                        <td>{{ song.tab_type }}</td>
+                        <td>{{ song.title }}</td>
                         <td>{{ song.tuning }}</td>
-                        <td>
-                            <button class="btn btn-outline btn-info">Choose this tab</button>
+                        <td> 
+                            <button class="btn btn-outline btn-info">Go to Tab</button>
                             <button class="btn btn-outline btn-danger">Delete  
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
