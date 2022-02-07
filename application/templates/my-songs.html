@@ -31,7 +31,11 @@
                         <td>{{ song.title }}</td>
                         <td>{{ song.tuning }}</td>
                         <td> 
-                            <button class="btn btn-outline btn-info">Go to Tab</button>
+                            <form action="{{ url_for('tab_page') }}" method="POST">
+                                <input type="hidden" name="tab_url" value="{{ song.tab_url }}">
+                                <input type="hidden", name="video_url", value="https://www.youtube.com/watch?v={{ song.video_id }}">
+                                <button type=submit class="btn btn-outline btn-info">Go to Tab</button>
+                            </form>
                             <button class="btn btn-outline btn-danger">Delete  
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>

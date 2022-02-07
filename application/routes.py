@@ -72,6 +72,7 @@ def save_page():
 
     return redirect(url_for('mysongs_page'))
 
+
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
 def wishlist_page():
