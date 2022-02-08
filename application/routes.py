@@ -41,7 +41,7 @@ def tab_page():
     else:
         video_id = ''
 
-    return render_template("tab.html", title=tab[0], tab=tab[1], tab_url=tab_url, videos=videos, video_id=video_id)
+    return render_template("tab.html", title=tab['title'], tab=tab['tab'], chords=tab['chord_list'], tab_url=tab_url, videos=videos, video_id=video_id)
 
 
 @app.route("/my-songs")

@@ -40,6 +40,15 @@
         <iframe width="200" height="200"
             src="https://www.youtube.com/embed/{{video_id}}">
         </iframe>
+        <div class="row">
+            {% for chord in chords %}
+                <div class="col-sm text-center">
+                <p style="color: #24a0ed; font-weight: bold">{{ chord }}</p>
+                <img src="	https://www.guitar-chord.org/images/open/{{ chord }}.png" style="filter: grayscale(100%);">
+                </div>
+            {% endfor %}
+        </div>
+        <br>
         <div id="tab">{{ tab }}</div>
     </div>
     

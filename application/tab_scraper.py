@@ -45,5 +45,32 @@ def get_tab(tab_url):
 
     title = soup.find('h3', class_="content_h").text
 
-    return (title, tab)
+    if 'Chord' in title:
+        chord_list = get_chords(tab)
+    else:
+        chord_list = []
 
+    tab_dict = {
+        "title": title,
+        "tab": tab,
+        "chord_list": chord_list
+    }
+
+    return tab_dict
+
+
+def get_chords(tab):
+    chords = ['A', 'Am', 'A#', 'A#m', 'A7',
+                'B', 'Bm', 'B#', 'B#m', 'B7',
+                'C', 'Cm', 'C#', 'C#m', 'C7',
+                'D', 'Dm', 'D#', 'D#m', 'D7',
+                'E', 'Em', 'E#', 'E#m', 'E7',
+                'F', 'Fm', 'F#', 'F#m', 'F7',
+                'G', 'Gm', 'G#', 'G#m', 'G7']
+
+    chord_list = []
+    for chord in chords:
+        if f' {chord} ' in tab:
+            chord_list.append(chord)
+    
+    return chord_list
