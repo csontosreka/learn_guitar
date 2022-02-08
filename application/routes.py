@@ -80,11 +80,11 @@ def wishlist_page():
     print(form.errors)
 
     if form.validate_on_submit() and request.method == "POST":
-        song_to_create = Wishlist(artist=form.artist.data,
-                                song=form.title.data,
+        song_to_create = Wishlist(artist=str(form.artist.data).title(),
+                                song=str(form.title.data).title(),
                                 owner=current_user.user_id)
-        if Wishlist.query.filter_by(artist=form.artist.data,
-                                song=form.title.data,
+        if Wishlist.query.filter_by(artist=str(form.artist.data).title(),
+                                song=str(form.title.data).title(),
                                 owner=current_user.user_id).first() is None:
             db.session.add(song_to_create)
             db.session.commit()

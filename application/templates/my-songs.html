@@ -6,14 +6,6 @@
 
 {% block content %}
     
-    <div class="input-group">
-        <input class=" border rounded-pill" type="text" placeholder="Search for songs" id="search-input-yt">
-        <span class="input-group-append">
-            <button id="search-btn-yt" class="btn btn-outline-secondary bg-white border-start-0 border rounded-pill ms-n3" type="button">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
-    </div>
     <h3>In this page you can find the songs you can already play.</h3>
     <table class="table table-hover table-dark">
         <thead>
@@ -30,17 +22,19 @@
                     <tr>
                         <td>{{ song.title }}</td>
                         <td>{{ song.tuning }}</td>
-                        <td> 
-                            <form action="{{ url_for('tab_page') }}" method="POST">
-                                <input type="hidden" name="tab_url" value="{{ song.tab_url }}">
-                                <input type="hidden", name="video_url", value="https://www.youtube.com/watch?v={{ song.video_id }}">
-                                <button type=submit class="btn btn-outline btn-info">Go to Tab</button>
-                            </form>
-                            <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
-                                <input type="hidden" name="database" value="My_Songs">
-                                <input type=hidden value="{{ song.title }}" name=song_to_delete />
-                                <input type=submit value='Delete' class="btn btn-outline btn-danger"></input>
-                            </form>
+                        <td>
+                            <div class="row"> 
+                                <form action="{{ url_for('tab_page') }}" method="POST" style="margin-right: 10px">
+                                    <input type="hidden" name="tab_url" value="{{ song.tab_url }}">
+                                    <input type="hidden", name="video_url", value="https://www.youtube.com/watch?v={{ song.video_id }}">
+                                    <button type=submit class="btn btn-outline btn-info">Go to Tab</button>
+                                </form>
+                                <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
+                                    <input type="hidden" name="database" value="My_Songs">
+                                    <input type=hidden value="{{ song.title }}" name=song_to_delete />
+                                    <button type=submit class="btn btn-outline btn-danger">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}

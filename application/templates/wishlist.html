@@ -7,18 +7,10 @@
 {% block content %}
 {% include 'helpers/song_modals.html' %}
     
-    <div class="input-group">
-        <input class=" border rounded-pill" type="text" placeholder="Search for songs" id="search-input-yt">
-        <span class="input-group-append">
-            <button id="search-btn-yt" class="btn btn-outline-secondary bg-white border-start-0 border rounded-pill ms-n3" type="button">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
-    </div>
     <h3>In this page you can find the songs you would like to learn in the future.</h3>
     <div style="float: right; margin-right: 10px; margin-bottom: 10px">
-        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#Modal-AddSong">
-            Add Song
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#Modal-AddSong">
+            <i class="fas fa-plus"></i> Add Song
         </button>
     </div>
     <table class="table table-hover table-dark">
@@ -36,17 +28,18 @@
                     <td>{{ song.artist }}</td>
                     <td>{{ song.song }}</td>
                     <td>
-                        <form action="{{ url_for('search_page') }}" method=post>
-                            <input type=hidden value="{{ song.artist }}" name="artist"/>
-                            <input type=hidden value="{{ song.song }}" name="song">
-                            <input type=submit value='Search for tabs' class="btn btn-outline btn-info">
-                        </form>
-
-                        <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
-                            <input type="hidden" name="database" value="Wishlist">
-                            <input type=hidden value="{{ song.artist }}, {{ song.song }}"name=song_to_delete />
-                            <input type=submit value='Delete' class="btn btn-outline btn-danger">
-                        </form>
+                        <div class="row">
+                            <form action="{{ url_for('search_page') }}" method=post style="margin-right: 10px">
+                                <input type=hidden value="{{ song.artist }}" name="artist"/>
+                                <input type=hidden value="{{ song.song }}" name="song">
+                                <input type=submit value='Search for tabs' class="btn btn-outline btn-info">
+                            </form>
+                            <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
+                                <input type="hidden" name="database" value="Wishlist">
+                                <input type=hidden value="{{ song.artist }}, {{ song.song }}"name=song_to_delete />
+                                <input type=submit value='Delete' class="btn btn-outline btn-danger">
+                            </form>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
