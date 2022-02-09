@@ -51,6 +51,7 @@
                             <form action="{{ url_for('tab_page') }}" method=post class=tab-for-song>
                                 <input type="hidden", name="tab_url", value="{{ tab.tab_link }}">
                                 <input type="hidden", name="query", value="{{ query }}">
+                                <input type="hidden", name="artist", value="{{ tab.artist }}">
                                 <input type=submit value='Choose this Tab' class="btn btn-outline btn-info"></input>
                             </form>
                         </td>

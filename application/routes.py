@@ -33,7 +33,11 @@ def search_page():
 def tab_page():
     tab_url = request.form.get('tab_url')
     query = request.form.get('query') 
+    artist = request.form.get('artist')
+    print(artist)
     tab = tab_scraper.get_tab(tab_url)
+    title = artist + ' ' + tab['title']
+    print(title)
     videos = get_yt_search_results(query)
     video_url = request.form.get('video_url')
     if video_url:
@@ -41,7 +45,8 @@ def tab_page():
     else:
         video_id = ''
 
-    return render_template("tab.html", title=tab['title'], tab=tab['tab'], chords=tab['chord_list'], tab_url=tab_url, videos=videos, video_id=video_id)
+    return render_template("tab.html", title=title, tab=tab['tab'], chords=tab['chord_list'], 
+                            tab_url=tab_url, videos=videos, video_id=video_id)
 
 
 @app.route("/my-songs")

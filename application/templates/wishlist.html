@@ -32,12 +32,16 @@
                             <form action="{{ url_for('search_page') }}" method=post style="margin-right: 10px">
                                 <input type=hidden value="{{ song.artist }}" name="artist"/>
                                 <input type=hidden value="{{ song.song }}" name="song">
-                                <input type=submit value='Search for tabs' class="btn btn-outline btn-info">
+                                <button type=submit class="btn btn-outline btn-info">
+                                    <i class="fas fa-search"></i> Search for tabs
+                                </button>
                             </form>
                             <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
                                 <input type="hidden" name="database" value="Wishlist">
                                 <input type=hidden value="{{ song.artist }}, {{ song.song }}"name=song_to_delete />
-                                <input type=submit value='Delete' class="btn btn-outline btn-danger">
+                                <button type=submit class="btn btn-outline btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
                             </form>
                         </div>
                     </td>
