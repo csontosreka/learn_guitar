@@ -31,14 +31,14 @@ def search_page():
 
 @app.route("/tab", methods=["GET", "POST"])
 def tab_page():
-    title = request.form.get('title')
     tab_url = request.form.get('tab_url')
-    query = request.form.get('query') 
-    artist = request.form.get('artist')
-    tab = tab_scraper.get_tab(tab_url)
+    title = request.form.get('title')
     if title is None:
-        title = artist + ' ' + tab['title']
-    videos = get_yt_search_results(query)
+        title = request.form.get('query').title()    
+
+    tab = tab_scraper.get_tab(tab_url)
+
+    videos = get_yt_search_results(title)
     video_url = request.form.get('video_url')
     if video_url:
         video_id = video_url.replace('https://www.youtube.com/watch?v=', '')
@@ -58,7 +58,7 @@ def mysongs_page():
 
 @app.route("/save",  methods=["GET", "POST"])
 @login_required
-def save_page():
+def save_page(): 
     title = request.form.get('title')
     #TODO
     tuning = ''

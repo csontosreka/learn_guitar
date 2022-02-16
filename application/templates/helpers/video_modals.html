@@ -34,6 +34,7 @@
                                     <td>{{ video.name }}</td>
                                     <td>
                                         <form action="{{ url_for('tab_page') }}" method=post class=video-for-song>
+                                            <input type="hidden", name="title", value="{{ title }}">
                                             <input type="hidden", name="video_url", value="{{ video.video_url }}">
                                             <input type="hidden", name="tab_url", value="{{ tab_url }}">
                                             <input type=submit value='Select' class="btn btn-outline btn-info"></input>
