@@ -46,7 +46,7 @@ def tab_page():
         video_id = ''
 
     return render_template("tab.html", title=title, tab=tab['tab'], chords=tab['chord_list'], 
-                            tab_url=tab_url, videos=videos, video_id=video_id)
+                            tab_url=tab_url, videos=videos, video_id=video_id, tuning=tab['tuning'])
 
 
 @app.route("/my-songs")
@@ -60,8 +60,7 @@ def mysongs_page():
 @login_required
 def save_page(): 
     title = request.form.get('title')
-    #TODO
-    tuning = ''
+    tuning = request.form.get('tuning')
     tab_url = request.form.get('tab_url')
     video_id = request.form.get('video_id')
 

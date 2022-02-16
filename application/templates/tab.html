@@ -21,6 +21,7 @@
     <div class="row">
         <form method="POST" action="{{ url_for('save_page') }}">
             <input type="hidden", name="title", value="{{ title }}">
+            <input type="hidden", name="tuning", value="{{ tuning }}">
             <input type="hidden", name="tab_url", value="{{ tab_url }}">
             <input type="hidden", name="video_id", value="{{ video_id }}">
             <button type=submit class="btn btn-success btn-lg" style="margin-top: 10px; margin-right: 10px; position: absolute; right: 0;">

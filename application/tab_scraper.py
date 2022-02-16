@@ -45,6 +45,8 @@ def get_tab(tab_url):
 
     title = soup.find('h3', class_="content_h").text
 
+    tuning = get_tuning(tab)
+
     if 'Chords' in title:
         chord_list = get_chords(tab)
     else:
@@ -53,7 +55,8 @@ def get_tab(tab_url):
     tab_dict = {
         "title": title,
         "tab": tab,
-        "chord_list": chord_list
+        "chord_list": chord_list,
+        "tuning": tuning
     }
 
     return tab_dict
@@ -74,3 +77,13 @@ def get_chords(tab):
             chord_list.append(chord)
     
     return chord_list
+
+
+def get_tuning(tab):
+    tunings = ['Standard', 'Drop D ', 'Drop C#', 'Drop C ', 'Drop B ', 'Drop A#', 'Drop A ' ]
+
+    for tuning in tunings:
+        if tuning in tab:
+            result = tuning
+    
+    return result
