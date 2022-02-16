@@ -31,13 +31,13 @@ def search_page():
 
 @app.route("/tab", methods=["GET", "POST"])
 def tab_page():
+    title = request.form.get('title')
     tab_url = request.form.get('tab_url')
     query = request.form.get('query') 
     artist = request.form.get('artist')
-    print(artist)
     tab = tab_scraper.get_tab(tab_url)
-    title = artist + ' ' + tab['title']
-    print(title)
+    if title is None:
+        title = artist + ' ' + tab['title']
     videos = get_yt_search_results(query)
     video_url = request.form.get('video_url')
     if video_url:
