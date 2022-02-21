@@ -44,8 +44,13 @@
         <div class="row">
             {% for chord in chords %}
                 <div class="col-sm text-center">
-                <p style="color: #24a0ed; font-weight: bold">{{ chord }}</p>
-                <img src="	https://www.guitar-chord.org/images/open/{{ chord }}.png" style="filter: grayscale(100%);">
+                {% if '#' in chord %}
+                    <p style="color: #24a0ed; font-weight: bold">{{ chord }}</p>
+                    <img src="https://www.guitar-chord.org/images/barre/{{ chord|replace('#', 'sharp') }}-1.png" style="filter: grayscale(100%);">
+                {% else %}
+                    <p style="color: #24a0ed; font-weight: bold">{{ chord }}</p>
+                    <img src="https://www.guitar-chord.org/images/open/{{ chord }}.png" style="filter: grayscale(100%);">
+                {% endif %}
                 </div>
             {% endfor %}
         </div>

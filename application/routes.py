@@ -20,7 +20,7 @@ def search_page():
     if form.validate_on_submit():
         artist = form.artist.data
         song = form.song.data
-        search_query = artist + ' ' + song
+        search_query = artist + ' - ' + song
         tab_list = tab_scraper.get_tab_search_results(artist, song)
     else:
         tab_list = []
@@ -52,7 +52,7 @@ def tab_page():
 @app.route("/my-songs")
 @login_required
 def mysongs_page():
-    mysongs = My_Songs.query.all()
+    mysongs = My_Songs.query.filter_by(owner=current_user.user_id)
     return render_template("my-songs.html", songs=mysongs)
 
 
@@ -60,14 +60,20 @@ def mysongs_page():
 @login_required
 def save_page(): 
     title = request.form.get('title')
+
+    artist = title.split(' - ')[0]
+    song = title.split(' - ')[1]
+    
     tuning = request.form.get('tuning')
     tab_url = request.form.get('tab_url')
     video_id = request.form.get('video_id')
 
-    song_to_create = My_Songs(title=title, tuning=tuning, tab_url=tab_url, video_id=video_id,
+    song_to_create = My_Songs(artist=artist, song=song, tuning=tuning, tab_url=tab_url, video_id=video_id,
                                 owner=current_user.user_id)
-    if My_Songs.query.filter_by(title=title, tuning=tuning, tab_url=tab_url, video_id=video_id,
+    if My_Songs.query.filter_by(artist=artist, song=song, tuning=tuning, tab_url=tab_url, video_id=video_id,
                                 owner=current_user.user_id).first() is None:
+        if Wishlist.query.filter_by(artist=artist, song=song, owner=current_user.user_id).first() is not None:
+            flash("This song is on your Wishlist too.", category='info')
         db.session.add(song_to_create)
         db.session.commit()
         flash('Song added successfully!', category='success')
@@ -142,7 +148,7 @@ def login_page():
             flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
             return redirect(url_for('home_page'))
         else:
-            flash('Username and password are not match! Please try again', category='danger')
+            flash('Username and password does not match! Please try again', category='danger')
 
     return render_template('login.html', form=form)
 
@@ -166,8 +172,10 @@ def delete_song_page():
         page = 'wishlist_page'
     
     if database == 'My_Songs':
-        row = request.form.get('song_to_delete')
-        entry = My_Songs.query.filter_by(title=row, owner=current_user.user_id).first()
+        row = request.form.get('song_to_delete').split(' - ')
+        artist = row[0]
+        song = row[1]
+        entry = My_Songs.query.filter_by(artist=artist, song=song, owner=current_user.user_id).first()
         page = 'mysongs_page'
     
     if entry is not None:

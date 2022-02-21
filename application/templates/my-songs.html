@@ -10,22 +10,22 @@
     <table class="table table-hover table-dark">
         <thead>
             <tr>
-                <!-- Your Columns HERE -->
-                <th scope="col">Title</th>
+                <th scope="col">Artist</th>
+                <th scope="col">Song</th>
                 <th scope="col">Tuning</th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Your rows inside the table HERE: -->
                 {% for song in songs %}
                     <tr>
-                        <td>{{ song.title }}</td>
+                        <td>{{ song.artist }}</td>
+                        <td>{{ song.song }}</td>
                         <td>{{ song.tuning }}</td>
                         <td>
                             <div class="row"> 
                                 <form action="{{ url_for('tab_page') }}" method="POST" style="margin-right: 10px">
-                                    <input type="hidden" name="title" value="{{ song.title }}">
+                                    <input type="hidden" name="title" value="{{ song.artist }} - {{ song.song }}">
                                     <input type="hidden" name="tab_url" value="{{ song.tab_url }}">
                                     <input type="hidden", name="video_url", value="https://www.youtube.com/watch?v={{ song.video_id }}">
                                     <button type=submit class="btn btn-outline btn-info">
@@ -34,7 +34,7 @@
                                 </form>
                                 <form action="{{ url_for('delete_song_page') }}" method=post class=delete-song>
                                     <input type="hidden" name="database" value="My_Songs">
-                                    <input type=hidden value="{{ song.title }}" name=song_to_delete />
+                                    <input type=hidden value="{{ song.artist }} - {{song.song}}" name=song_to_delete />
                                     <button type=submit class="btn btn-outline btn-danger">
                                         <i class="fas fa-trash-alt"></i> Delete
                                     </button>
