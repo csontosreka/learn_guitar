@@ -33,10 +33,17 @@ def search_page():
 def tab_page():
     tab_url = request.form.get('tab_url')
     title = request.form.get('title')
+    tab = request.form.get('tab')
+
     if title is None:
         title = request.form.get('query').title()    
 
-    tab = tab_scraper.get_tab(tab_url)
+    if tab is None:
+        tab = tab_scraper.get_tab(tab_url)['tab']
+    else:
+        print("Successfully read tabs from database")
+    
+    tab_data = tab_scraper.get_tab(tab_url)
 
     videos = get_yt_search_results(title)
     video_url = request.form.get('video_url')
@@ -45,8 +52,8 @@ def tab_page():
     else:
         video_id = ''
 
-    return render_template("tab.html", title=title, tab=tab['tab'], chords=tab['chord_list'], 
-                            tab_url=tab_url, videos=videos, video_id=video_id, tuning=tab['tuning'])
+    return render_template("tab.html", title=title, tab=tab, chords=tab_data['chord_list'], 
+                            tab_url=tab_url, videos=videos, video_id=video_id, tuning=tab_data['tuning'])
 
 
 @app.route("/my-songs")
@@ -66,14 +73,18 @@ def save_page():
     
     tuning = request.form.get('tuning')
     tab_url = request.form.get('tab_url')
+    tab = request.form.get('tab')
     video_id = request.form.get('video_id')
 
-    song_to_create = My_Songs(artist=artist, song=song, tuning=tuning, tab_url=tab_url, video_id=video_id,
+    song_to_create = My_Songs(artist=artist, song=song, tuning=tuning, tab_url=tab_url, video_id=video_id, tab=tab,
                                 owner=current_user.user_id)
-    if My_Songs.query.filter_by(artist=artist, song=song, tuning=tuning, tab_url=tab_url, video_id=video_id,
+                                
+    if My_Songs.query.filter_by(artist=artist, song=song, tuning=tuning, tab_url=tab_url, video_id=video_id, tab=tab,
                                 owner=current_user.user_id).first() is None:
+
         if Wishlist.query.filter_by(artist=artist, song=song, owner=current_user.user_id).first() is not None:
             flash("This song is on your Wishlist too.", category='info')
+
         db.session.add(song_to_create)
         db.session.commit()
         flash('Song added successfully!', category='success')

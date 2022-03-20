@@ -4,7 +4,7 @@ api_key = 'AIzaSyC5KPqjgkghi5Q0JW8aXiMdahWIGyEB8Ek'
 
 def get_yt_search_results(search_query):
     youtube = build('youtube', 'v3', developerKey=api_key)
-    request = youtube.search().list(q=search_query, part='id, snippet', type='video', maxResults=10)
+    request = youtube.search().list(q=search_query, part='id, snippet', type='video', maxResults=10, videoLicense="youtube")
     result = request.execute()
 
     result_list = []

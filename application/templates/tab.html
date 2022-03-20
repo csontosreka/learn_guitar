@@ -24,6 +24,7 @@
             <input type="hidden", name="tuning", value="{{ tuning }}">
             <input type="hidden", name="tab_url", value="{{ tab_url }}">
             <input type="hidden", name="video_id", value="{{ video_id }}">
+            <input type="hidden", name="tab", value="{{ tab }}">
             <button type=submit class="btn btn-success btn-lg" style="margin-top: 10px; margin-right: 10px; position: absolute; right: 0;">
                 <i class="fas fa-plus"></i> Add to My Songs
             </button>
@@ -38,9 +39,11 @@
     </div>
 
     <div class="container pt-3 rounded bg-light text-dark">
-        <iframe width="200" height="200"
-            src="https://www.youtube.com/embed/{{video_id}}">
-        </iframe>
+        <div class="video">
+            <iframe width="600" height="340" frameborder="0" gesture="media" allowfullscreen
+                src="https://www.youtube.com/embed/{{video_id}}">
+            </iframe>
+        </div>
         <div class="row">
             {% for chord in chords %}
                 <div class="col-sm text-center">
@@ -60,10 +63,12 @@
     
     <style>
 
-        iframe {    
-            width:30%;    
-            float:right;
-            position:relative;    
+        iframe {     
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 205px;    
         }
 
         h1 {

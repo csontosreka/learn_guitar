@@ -27,6 +27,7 @@
                                 <form action="{{ url_for('tab_page') }}" method="POST" style="margin-right: 10px">
                                     <input type="hidden" name="title" value="{{ song.artist }} - {{ song.song }}">
                                     <input type="hidden" name="tab_url" value="{{ song.tab_url }}">
+                                    <input type="hidden" name="tab" value="{{ song.tab }}">
                                     <input type="hidden", name="video_url", value="https://www.youtube.com/watch?v={{ song.video_id }}">
                                     <button type=submit class="btn btn-outline btn-info">
                                         <i class="fas fa-arrow-circle-right"></i> Go to Tab
