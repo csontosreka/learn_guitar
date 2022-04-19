@@ -40,7 +40,7 @@ class My_Songs(db.Model):
     artist = db.Column(db.String(length=50), nullable=False)
     song = db.Column(db.String(length=50), nullable=False)
     tuning = db.Column(db.String(length=10))
-    video_id = db.Column(db.String(length=200))
+    video_id = db.Column(db.String(length=20))
     tab_url = db.Column(db.String(length=200))
     tab = db.Column(db.Text())
     owner = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
